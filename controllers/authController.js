@@ -30,7 +30,7 @@ module.exports = {
 
       const token = jwt.sign(
         { id: usuario.id, role: usuario.role },
-        process.env.JWT_SECRET || 'secretpizzaria',
+        'e2c8620c1e1216a49527788d35df251c',
         { expiresIn: '1h' }
       );
 
@@ -70,7 +70,7 @@ module.exports = {
 
       const token = jwt.sign(
         { id: usuario.id, role: usuario.role },
-        process.env.JWT_SECRET,
+        'e2c8620c1e1216a49527788d35df251c',
         { expiresIn: '1h' }
       );
 

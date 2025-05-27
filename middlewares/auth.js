@@ -4,7 +4,7 @@ const { Usuario } = require('../models/index');
 const auth = async (req, res, next) => {
   try {
     const token = req.header('Authorization').replace('Bearer ', '');
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, 'e2c8620c1e1216a49527788d35df251c');
     const usuario = await Usuario.findOne({ where: { id: decoded.id } });
     if (!usuario) {
       throw new Error();
