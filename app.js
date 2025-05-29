@@ -24,5 +24,6 @@ app.use(bodyParser.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/pizzas', pizzaRoutes);
 app.use('/api/pedidos', pedidoRoutes);
+app.use('/api/usuarios', require('./routes/userRoutes'));
 
 module.exports = app;

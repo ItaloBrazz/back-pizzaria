@@ -12,7 +12,12 @@ const auth = async (req, res, next) => {
     req.userid = usuario.id;
     req.role = usuario.role;
     req.token = token;
-    req.usuario = usuario;
+    
+    req.usuario = {
+      id: usuario.id,
+      role: usuario.role
+    };
+
     next();
   } catch (error) {
     res.status(401).send({ error: 'Por favor, autentique-se.' });

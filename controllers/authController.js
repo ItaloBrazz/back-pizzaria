@@ -83,5 +83,44 @@ module.exports = {
       console.error('Erro no login:', error);
       res.status(500).json({ error: 'Erro interno no servidor' });
     }
+  },
+  
+  atualizarUsuario: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { nome, email, senha } = req.body;
+      
+      // Verifica se o usuário logado é o mesmo que está sendo atualizado
+      if (req.usuario.id !== parseInt(id) && req.usuario.role !== 'admin') {
+        return res.status(403).json({ error: 'Acesso não autorizado' });
+      }
+
+      const dadosAtualizacao = { nome, email };
+      
+      // Atualiza a senha apenas se for fornecida
+      if (senha) {
+        dadosAtualizacao.senha = await bcrypt.hash(senha, 10);
+      }
+
+      const [atualizado] = await Usuario.update(dadosAtualizacao, {
+        where: { id },
+        returning: true, // Retorna o registro atualizado
+        plain: true
+      });
+
+      if (!atualizado) {
+        return res.status(404).json({ error: 'Usuário não encontrado' });
+      }
+
+      // Busca o usuário atualizado sem a senha
+      const usuarioAtualizado = await Usuario.findByPk(id, {
+        attributes: { exclude: ['senha'] }
+      });
+
+      res.json(usuarioAtualizado);
+    } catch (error) {
+      console.error('Erro ao atualizar usuário:', error);
+      res.status(500).json({ error: 'Erro interno no servidor' });
+    }
   }
 };
