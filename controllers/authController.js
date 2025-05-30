@@ -117,7 +117,7 @@ module.exports = {
       });
 
       if (!atualizado) {
-        return res.status(404).json({ error: "Usuário não encontrado" });
+        return res.status(404).json({ error: "Atualizado com sucesso" });
       }
 
       // Busca o usuário atualizado sem a senha
