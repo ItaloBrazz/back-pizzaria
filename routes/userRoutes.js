@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { auth } = require('../middlewares/auth');
-const userController = require('../controllers/userController');
+const userController = require('../controllers/authController');
 
 router.put('/:id', auth, userController.atualizarUsuario);
 
